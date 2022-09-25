@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventory.databinding.ItemListFragmentBinding
@@ -29,7 +30,11 @@ import com.example.inventory.databinding.ItemListFragmentBinding
  * Main fragment displaying details for all items in the database.
  */
 class ItemListFragment : Fragment() {
-
+    private val viewModel: InventoryViewModel by activityViewModels {
+        InventoryViewModel.InventoryViewModelFactory(
+            (activity?.application as InventoryApplication).database.ItemDao()
+        )
+    }
     private var _binding: ItemListFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -44,12 +49,20 @@ class ItemListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
-        binding.floatingActionButton.setOnClickListener {
-            val action = ItemListFragmentDirections.actionItemListFragmentToAddItemFragment(
-                getString(R.string.add_fragment_title)
-            )
-            this.findNavController().navigate(action)
+        val adapter = ItemListAdapter {
+        }
+        binding.recyclerView.adapter = adapter
+        viewModel.allItems.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+            binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+            binding.floatingActionButton.setOnClickListener {
+                val action = ItemListFragmentDirections.actionItemListFragmentToAddItemFragment(
+                    getString(R.string.add_fragment_title)
+                )
+                this.findNavController().navigate(action)
+            }
         }
     }
 }

@@ -79,7 +79,7 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.saveAction.setOnClickListener{
+        binding.saveAction.setOnClickListener {
             addNewItem()
         }
     }
