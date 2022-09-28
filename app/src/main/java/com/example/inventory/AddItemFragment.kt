@@ -29,9 +29,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
 
-/**
- * Fragment to add or update an item in the Inventory database.
- */
 class AddItemFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModel.InventoryViewModelFactory(
@@ -99,7 +96,7 @@ class AddItemFragment : Fragment() {
                 this.navigationArgs.itemId,
                 this.binding.itemName.text.toString(),
                 this.binding.itemPrice.text.toString(),
-                this.binding.itemCount.text.toString()
+                this.binding.itemCount.text.toString(),
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
@@ -116,9 +113,6 @@ class AddItemFragment : Fragment() {
         }
     }
 
-    /**
-     * Called before fragment is destroyed.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
         // Hide keyboard.

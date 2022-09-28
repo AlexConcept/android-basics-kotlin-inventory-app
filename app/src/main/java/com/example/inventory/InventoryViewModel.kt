@@ -53,7 +53,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             id = itemId,
             itemName = itemName,
             itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            quantityInStock = itemCount.toInt(),
         )
     }
 
@@ -85,7 +85,6 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             itemDao.delete(item)
         }
     }
-
 
     class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
