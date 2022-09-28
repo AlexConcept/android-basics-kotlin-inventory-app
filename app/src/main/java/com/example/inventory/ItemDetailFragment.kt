@@ -30,9 +30,6 @@ import com.example.inventory.data.getFormattedPrice
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-/**
- * [ItemDetailFragment] displays the details of the selected item.
- */
 class ItemDetailFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModel.InventoryViewModelFactory(
@@ -63,9 +60,6 @@ class ItemDetailFragment : Fragment() {
         return binding?.root
     }
 
-    /**
-     * Displays an alert dialog to get the user's confirmation before deleting the item.
-     */
     private fun showConfirmationDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(android.R.string.dialog_alert_title))
@@ -78,9 +72,6 @@ class ItemDetailFragment : Fragment() {
             .show()
     }
 
-    /**
-     * Deletes the current item and navigates to the list fragment.
-     */
     private fun deleteItem() {
         viewModel.deleteItem(item)
         findNavController().navigateUp()
@@ -107,9 +98,6 @@ class ItemDetailFragment : Fragment() {
         this.findNavController().navigate(action)
     }
 
-    /**
-     * Called when fragment is destroyed.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
